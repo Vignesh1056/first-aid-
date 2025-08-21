@@ -16,6 +16,7 @@ interface Tutorial {
   channel: string;
   views: string;
   category: string;
+  takeaway: string; // 👈 added
 }
 
 // Curated medical tutorials from trusted channels
@@ -23,68 +24,74 @@ const tutorials: Tutorial[] = [
   {
     id: "1",
     title: "CPR Training: How to Save a Life",
-    description: "Complete guide to hands-only CPR and rescue breathing techniques",
+    description: "Hands-only CPR and rescue breathing techniques for cardiac emergencies.",
     duration: "8:42",
     difficulty: "Beginner",
     youtubeId: "n5hP4DIBCEE",
     channel: "American Heart Association",
     views: "2.1M",
-    category: "CPR"
+    category: "CPR",
+    takeaway: "You’ll learn how to keep someone alive during cardiac arrest until help arrives."
   },
   {
     id: "2", 
     title: "Choking Relief - Heimlich Maneuver",
-    description: "Learn the proper technique for helping choking victims",
+    description: "Step-by-step guide for performing the Heimlich maneuver on adults and children.",
     duration: "5:23",
     difficulty: "Beginner",
     youtubeId: "FEr9m2ZyKK0",
     channel: "Mayo Clinic",
     views: "1.8M",
-    category: "Choking"
+    category: "Choking",
+    takeaway: "Shows you how to safely dislodge food or objects blocking a person’s airway."
   },
   {
     id: "3",
     title: "Burn Treatment and First Aid",
-    description: "How to properly treat different types of burns and prevent infection",
+    description: "Best practices for treating mild to severe burns and avoiding infection.",
     duration: "6:15",
     difficulty: "Intermediate",
     youtubeId: "OvO_BQk9vE4",
     channel: "Johns Hopkins Medicine",
     views: "890K",
-    category: "Burns"
+    category: "Burns",
+    takeaway: "Explains how to cool burns, dress wounds, and when to seek emergency care."
   },
   {
     id: "4",
     title: "Wound Care and Bleeding Control",
-    description: "Effective techniques for stopping bleeding and proper wound care",
+    description: "Techniques for applying pressure, dressing wounds, and stopping bleeding.",
     duration: "7:31",
     difficulty: "Beginner",
     youtubeId: "mU7U6y3bkcc",
     channel: "American Red Cross",
     views: "1.2M",
-    category: "Bleeding"
+    category: "Bleeding",
+    takeaway: "Teaches life-saving steps to control bleeding until professional help arrives."
   },
   {
     id: "5",
     title: "Fracture and Sprain Management",
-    description: "Recognition and initial treatment of bone fractures and sprains",
+    description: "How to recognize and provide initial care for broken bones and sprains.",
     duration: "9:18",
     difficulty: "Intermediate",
     youtubeId: "JvO8zfnl9Yc",
     channel: "Cleveland Clinic",
     views: "754K",
-    category: "Fractures"
+    category: "Fractures",
+    takeaway: "Covers immobilization techniques and how to prevent further injury."
   },
   {
     id: "6",
     title: "Stroke Recognition - FAST Method",
-    description: "How to quickly identify stroke symptoms and get help",
+    description: "Quick way to spot stroke symptoms and get emergency help immediately.",
     duration: "4:57",
     difficulty: "Beginner",
     youtubeId: "gFk6A9hj1FI",
     channel: "American Stroke Association",
     views: "1.5M",
-    category: "Stroke"
+    category: "Stroke",
+    takeaway: "Explains the FAST test (Face, Arms, Speech, Time) for stroke detection."
   }
 ];
 
@@ -212,8 +219,13 @@ export function FirstAidTutorials() {
                   <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 ml-2" />
                 </div>
                 
-                <p className="text-xs text-muted-foreground mb-3 line-clamp-2">
+                <p className="text-xs text-muted-foreground mb-2 line-clamp-2">
                   {tutorial.description}
+                </p>
+
+                {/* NEW: What you'll learn */}
+                <p className="text-xs text-foreground font-medium mb-3">
+                  👉 {tutorial.takeaway}
                 </p>
 
                 <div className="flex items-center justify-between">
