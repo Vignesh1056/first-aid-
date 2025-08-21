@@ -6,13 +6,18 @@ import { useAuthStore } from "@/store/authStore";
 
 const Index = () => {
   const [showAuthDialog, setShowAuthDialog] = useState(false);
+  const [activeTab, setActiveTab] = useState("emergency");
   const { isAuthenticated } = useAuthStore();
 
   return (
     <div className="min-h-screen bg-background">
-      <Header onSignInClick={() => setShowAuthDialog(true)} />
+      <Header 
+        onSignInClick={() => setShowAuthDialog(true)}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+      />
       <main>
-        <Dashboard />
+        <Dashboard activeTab={activeTab} onTabChange={setActiveTab} />
       </main>
 
       <AuthDialog 

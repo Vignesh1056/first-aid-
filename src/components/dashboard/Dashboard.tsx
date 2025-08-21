@@ -8,8 +8,12 @@ import { QuizSystem } from "@/components/dashboard/QuizSystem";
 import { Heart, MapPin, Bot, Play, Brain, AlertTriangle } from "lucide-react";
 import heroMedical from "@/assets/hero-medical.jpg";
 
-export function Dashboard() {
-  const [activeTab, setActiveTab] = useState("emergency");
+interface DashboardProps {
+  activeTab?: string;
+  onTabChange?: (tab: string) => void;
+}
+
+export function Dashboard({ activeTab = "emergency", onTabChange }: DashboardProps) {
 
   return (
     <div className="min-h-screen bg-gradient-hero">
@@ -56,7 +60,7 @@ export function Dashboard() {
 
       {/* Main Dashboard */}
       <div className="container py-8">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs value={activeTab} onValueChange={onTabChange} className="w-full">
           <TabsList className="grid w-full grid-cols-5 mb-8 h-12">
             <TabsTrigger value="emergency" className="flex items-center space-x-2">
               <Heart className="h-4 w-4" />
@@ -115,7 +119,7 @@ export function Dashboard() {
       <div className="fixed bottom-6 right-6 flex flex-col space-y-3 z-40">
         {activeTab !== "emergency" && (
           <button
-            onClick={() => setActiveTab("emergency")}
+            onClick={() => onTabChange?.("emergency")}
             className="w-14 h-14 bg-gradient-emergency shadow-emergency rounded-full flex items-center justify-center pulse-emergency hover:shadow-floating transition-all"
             title="Emergency SOS"
           >
@@ -125,7 +129,7 @@ export function Dashboard() {
         
         {activeTab !== "ai" && (
           <button
-            onClick={() => setActiveTab("ai")}
+            onClick={() => onTabChange?.("ai")}
             className="w-12 h-12 bg-gradient-medical shadow-medical rounded-full flex items-center justify-center hover:shadow-floating transition-all"
             title="AI Assistant"
           >

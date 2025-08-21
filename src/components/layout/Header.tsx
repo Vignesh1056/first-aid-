@@ -14,9 +14,11 @@ import { useAuthStore } from "@/store/authStore";
 
 interface HeaderProps {
   onSignInClick?: () => void;
+  activeTab?: string;
+  onTabChange?: (tab: string) => void;
 }
 
-export function Header({ onSignInClick }: HeaderProps) {
+export function Header({ onSignInClick, activeTab, onTabChange }: HeaderProps) {
   const { user, logout } = useAuthStore();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -36,16 +38,32 @@ export function Header({ onSignInClick }: HeaderProps) {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <Button variant="ghost" className="text-sm font-medium">
+          <Button 
+            variant={activeTab === "emergency" ? "default" : "ghost"} 
+            className="text-sm font-medium"
+            onClick={() => onTabChange?.("emergency")}
+          >
             Dashboard
           </Button>
-          <Button variant="ghost" className="text-sm font-medium">
+          <Button 
+            variant={activeTab === "tutorials" ? "default" : "ghost"} 
+            className="text-sm font-medium"
+            onClick={() => onTabChange?.("tutorials")}
+          >
             Tutorials
           </Button>
-          <Button variant="ghost" className="text-sm font-medium">
+          <Button 
+            variant={activeTab === "hospitals" ? "default" : "ghost"} 
+            className="text-sm font-medium"
+            onClick={() => onTabChange?.("hospitals")}
+          >
             Hospitals
           </Button>
-          <Button variant="ghost" className="text-sm font-medium">
+          <Button 
+            variant={activeTab === "ai" ? "default" : "ghost"} 
+            className="text-sm font-medium"
+            onClick={() => onTabChange?.("ai")}
+          >
             AI Assistant
           </Button>
         </nav>
@@ -108,16 +126,44 @@ export function Header({ onSignInClick }: HeaderProps) {
       {isMobileMenuOpen && (
         <div className="md:hidden border-t bg-background">
           <nav className="container py-4 space-y-2">
-            <Button variant="ghost" className="w-full justify-start">
+            <Button 
+              variant={activeTab === "emergency" ? "default" : "ghost"} 
+              className="w-full justify-start"
+              onClick={() => {
+                onTabChange?.("emergency");
+                setIsMobileMenuOpen(false);
+              }}
+            >
               Dashboard
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button 
+              variant={activeTab === "tutorials" ? "default" : "ghost"} 
+              className="w-full justify-start"
+              onClick={() => {
+                onTabChange?.("tutorials");
+                setIsMobileMenuOpen(false);
+              }}
+            >
               Tutorials
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button 
+              variant={activeTab === "hospitals" ? "default" : "ghost"} 
+              className="w-full justify-start"
+              onClick={() => {
+                onTabChange?.("hospitals");
+                setIsMobileMenuOpen(false);
+              }}
+            >
               Hospitals
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button 
+              variant={activeTab === "ai" ? "default" : "ghost"} 
+              className="w-full justify-start"
+              onClick={() => {
+                onTabChange?.("ai");
+                setIsMobileMenuOpen(false);
+              }}
+            >
               AI Assistant
             </Button>
             {!user && (

@@ -86,18 +86,58 @@ export function HospitalLocator() {
   useEffect(() => {
     // Request location permission and get user's current location
     if (navigator.geolocation) {
+      setUserLocation("📍 Getting your location...");
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          // In a real app, you'd reverse geocode this to get address
-          setUserLocation(`${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`);
+          const { latitude, longitude } = position.coords;
+          // Use reverse geocoding to get a friendly address
+          fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=demo&no_annotations=1&limit=1`)
+            .then(response => response.json())
+            .then(data => {
+              if (data.results && data.results[0]) {
+                const address = data.results[0].formatted || data.results[0].components.city || data.results[0].components.state;
+                setUserLocation(`📍 ${address}`);
+              } else {
+                setUserLocation(`📍 ${latitude.toFixed(4)}, ${longitude.toFixed(4)}`);
+              }
+            })
+            .catch(() => {
+              setUserLocation(`📍 ${latitude.toFixed(4)}, ${longitude.toFixed(4)}`);
+            });
+          
+          // Sort hospitals by distance (mock calculation for demo)
+          const sortedHospitals = [...hospitals].sort((a, b) => {
+            const distanceA = parseFloat(a.distance);
+            const distanceB = parseFloat(b.distance);
+            return distanceA - distanceB;
+          });
+          setFilteredHospitals(sortedHospitals);
         },
         (error) => {
           console.log("Location access denied:", error);
-          setUserLocation("Location access denied");
+          if (error.code === 1) {
+            setUserLocation("📍 Location access denied - Enable location to find nearby hospitals");
+          } else if (error.code === 2) {
+            setUserLocation("📍 Location unavailable - Showing all hospitals");
+          } else {
+            setUserLocation("📍 Location timeout - Showing all hospitals"); 
+          }
+          toast({
+            title: "Location Access",
+            description: "Enable location access to find the nearest hospitals to you.",
+            variant: "destructive",
+          });
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 300000
         }
       );
+    } else {
+      setUserLocation("📍 Location services not supported");
     }
-  }, []);
+  }, [toast]);
 
   useEffect(() => {
     const filtered = hospitals.filter(hospital =>
