@@ -66,10 +66,22 @@ const tutorials: Tutorial[] = [
   description: "How to recognize and respond to low blood sugar (hypoglycemia) and high blood sugar (hyperglycemia).",
   duration: "6:45",
   difficulty: "Intermediate",
-  embedUrl: "https://drive.google.com/file/d/1vd0LPUJr9-z1cl6UT16zhCMgg5_2AWMK/view?usp=sharing", // Example placeholder, can replace with your OneDrive/YouTube link
+  embedUrl:"https://1drv.ms/v/c/57e603e612ceabeb/IQTXutVmeo90RYJttJO1HaOdAXoAevGWqqS64JswlzRln-E",
   channel: "Diabetes UK",
   views: "650K",
   category: "Diabetes"
+},
+
+{
+  id: "6",
+  title: "First Aid for Asthma Attacks",
+  description: "Learn how to assist someone during an asthma attack, including proper inhaler use and emergency steps.",
+  duration: "7:12",
+  difficulty: "Beginner",
+  embedUrl: "https://1drv.ms/v/c/57e603e612ceabeb/IQSpvkpoPuAJTpYPyZwHmUgnAWxex5L4kug_20PfQIlG2Ng",
+  channel: "Asthma UK",
+  views: "720K",
+  category: "Asthma"
 },
 
 ];
